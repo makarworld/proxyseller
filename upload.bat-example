@@ -1,0 +1,14 @@
+rmdir /s /q build
+rmdir /s /q dist
+rmdir /s /q mobileproxy.egg-info
+
+python -m pip install --upgrade twine setuptools pip 
+python setup.py sdist bdist_wheel
+python -m twine check dist/*
+python -m twine upload dist/* --username __token__ --password pypi-API-TOKEN
+
+rmdir /s /q build
+rmdir /s /q dist
+rmdir /s /q mobileproxy.egg-info
+
+pause

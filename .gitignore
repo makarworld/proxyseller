@@ -1,0 +1,5 @@
+/build
+/dist
+/mobileproxy.egg-info
+data.txt
+upload.bat
