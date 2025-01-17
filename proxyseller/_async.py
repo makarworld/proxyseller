@@ -3,7 +3,6 @@ from typing import Literal
 
 from curl_cffi import requests
 
-
 # Powered by GPT4 - muhaha
 class ProxySeller:
     URL = "https://proxy-seller.com/personal/api/v1/"
@@ -967,12 +966,12 @@ class ProxySeller:
 
     async def residentSubUserUpdate(
         self,
-        is_link_date: bool,
-        rotation: int,
-        traffic_limit: int,
-        expired_at: str,
-        is_active: bool,
         package_key: str,
+        is_link_date: bool = None,
+        rotation: int = None,
+        traffic_limit: int = None,
+        expired_at: str = None,
+        is_active: bool = None,
     ):
         """
         Update subuser package
