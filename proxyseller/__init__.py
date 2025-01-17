@@ -967,12 +967,12 @@ class ProxySeller:
 
     def residentSubUserUpdate(
         self,
-        is_link_date: bool,
-        rotation: int,
-        traffic_limit: int,
-        expired_at: str,
-        is_active: bool,
         package_key: str,
+        is_link_date: bool = None,
+        rotation: int = None,
+        traffic_limit: int = None,
+        expired_at: str = None,
+        is_active: bool = None,
     ):
         """
         Update subuser package
@@ -989,17 +989,21 @@ class ProxySeller:
         Returns:
             Updated subuser package info
         """
+        params = {
+            "package_key": package_key,
+            "is_link_date": is_link_date,
+            "rotation": rotation,
+            "traffic_limit": traffic_limit,
+            "expired_at": expired_at,
+            "is_active": is_active,
+        }
+        params = {k: v for k, v in params.items() if v is not None}
+
+
         return self.request(
             "POST",
             "residentsubuser/update",
-            json={
-                "is_link_date": is_link_date,
-                "rotation": rotation,
-                "traffic_limit": traffic_limit,
-                "expired_at": expired_at,
-                "is_active": is_active,
-                "package_key": package_key,
-            },
+            json=params,
         )
 
     def residentSubUserPackages(self):
