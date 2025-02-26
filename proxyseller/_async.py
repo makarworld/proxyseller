@@ -56,6 +56,10 @@ class ProxySeller:
         if options is None:
             options = {}
 
+        if options.get("params"):
+            # clear None values
+            options["params"] = {k: v for k, v in options["params"].items() if v is not None}
+
         response = await self.session.request(method, self.base_uri + uri, **options)
         try:
             data = json.loads(response.text)
@@ -763,13 +767,24 @@ class ProxySeller:
         )
 
     async def proxyList(
-        self, type: Literal["ipv4", "ipv6", "mobile", "isp", "mix", "null"] = None
+        self, 
+        type:     Literal["ipv4", "ipv6", "mobile", "isp", "mix", "null"] = None,
+        latest:   bool = None,
+        order_id: str  = None,
+        country:  str  = None,
+        ends:     bool = None
     ):
         """
         Retrieve the list of proxies.
+        https://docs.proxy-seller.com/proxy-seller/actions-with-proxies/retrieve-active-proxy
 
         Args:
             type (str): The type of the proxy - ipv4, ipv6, mobile, isp, mix, or null.
+            latest (bool): Y/N - Return proxy from last order 
+            orderId (str): Return a proxy from a specific order
+            country (str): Alpha3 country name (FRA or USA or ...) 
+            ends (bool): Y - List of ending proxies
+                        
 
         Returns:
             dict: An example of the returned value is shown below.
@@ -799,9 +814,18 @@ class ProxySeller:
                     'auto_renew_period': ''
                 }
         """
+        params = dict(
+            latest = "NY"[latest] if isinstance(latest, bool) else latest,
+            order_id = order_id,
+            country = country,
+            ends = "NY"[ends] if isinstance(ends, bool) else ends
+        )
+
         if type is None:
-            return await self.request("GET", "proxy/list")
-        return await self.request("GET", "proxy/list/" + str(type))
+            return await self.request("GET", "proxy/list", params = params)
+        return await self.request("GET", "proxy/list/" + str(type), params = params)
+
+
 
     async def proxyDownload(
         self,
