@@ -2,6 +2,14 @@ import json
 from typing import Any, Dict, List, Literal, Optional, Union
 
 from curl_cffi import requests
+from proxyseller._async import ProxySeller as AsyncProxySeller
+import proxyseller._async as _async
+
+__all__ = [
+    'ProxySeller',
+    'AsyncProxySeller',
+    '_async'
+]
 
 # Powered by GPT4 - muhaha | rewrited by @abuztrade
 # Source: https://bitbucket.org/proxy-seller/user-api-python/src/master/
