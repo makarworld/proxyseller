@@ -842,7 +842,7 @@ class ProxySeller:
             "balance/payments/list"
         )
 
-    async def get_residential_package_info(self):
+    async def get_residential_package(self):
         """
         ### Retrieve information about your residential proxy package.
         
@@ -1044,7 +1044,7 @@ class ProxySeller:
             json=body
         )
 
-    async def get_subuser_package_info(self):
+    async def get_subuser_packages(self):
         """
         ### Retrieve information about the subuser's package, including remaining traffic and expiration date.
         
