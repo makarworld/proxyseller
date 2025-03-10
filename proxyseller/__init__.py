@@ -863,19 +863,29 @@ class ProxySeller:
             "resident/package"
         )
 
-    def get_all_residential_locations(self):
+    def get_residential_geo(self, filename: str = None) -> str:
         """
-        ### Retrieve all available residential proxy locations.
+        ### Retrieve all available residential proxy locations to zip file.
         
         Docs: https://docs.proxy-seller.com/proxy-seller/residential-proxy/get-all-locations  
 
         Returns:
-            dict: The response containing all available GEO information.
+            str: The response containing raw zip file with all available GEO information.
         """
-        return self.request(
+        response = self.request(
             "GET",
             "resident/geo"
         )
+
+        if filename:
+            if not filename.endswith(".zip"):
+                filename += ".zip"
+
+            with open(filename, "wb") as f:
+                f.write(response)
+        
+        return response
+
 
     def get_existing_ip_list(self):
         """
